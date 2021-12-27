@@ -19,6 +19,7 @@ try {
   dispatch({ type: "REGISTER_USER_REQUEST" });
   const config = { headers: { "Content-Type": "multipart/form-data" } };
   axios.post("/register", userData, config);
+  dispatch({ type: "REGISTER_USER_SUCCESS", payload: data.user });
 } catch (error) {
   dispatch({
     type: "REGISTER_USER_FAILURE",
