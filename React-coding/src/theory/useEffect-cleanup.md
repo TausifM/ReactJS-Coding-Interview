@@ -31,8 +31,29 @@ isApiSubscribed = false;
 };
 }, []);
 
-// In axios to cancel such Warning of Subscriptions.
-axios.isCancel method is used.
+In axios to cancel such Warning of Subscriptions.
+axios.isCancel method is used
+
+useEffect(() => {
+const CancelToken = axios.CancelToken;
+const source = CancelToken.source();
+axios.get(API, {
+cancelToken: source.token
+})
+.catch((err) => {
+if (axios.isCancel(err)) {
+console.log('successfully aborted');
+} else {
+// handle error
+}
+});
+return () => {
+// cancel the request before component unmounts
+source.cancel();
+};
+}, []);
+
+(If the request fails because the Axios source aborts or cancels, then we do not want to update the state.)
 
 2. In fetch API call methods
 
